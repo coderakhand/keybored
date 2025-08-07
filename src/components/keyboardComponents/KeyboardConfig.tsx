@@ -9,11 +9,16 @@ import {
 } from "react-icons/io5";
 import { RxSpeakerModerate, RxSpeakerLoud } from "react-icons/rx";
 
-
 export const functionKeys = [
   <LuSunDim key="f1" className="w-1 h-1 sm:w-2 sm:h-2" />,
   <LuSunMedium key="f2" className="w-1 h-1 sm:w-2 sm:h-2" />,
-  3,
+  <div key="f3" className="flex gap-[1px]">
+    <div className="flex flex-col items-end gap-[1px]">
+      <div className="mr-[0.5px] h-[2.5px] w-[5px] border-[0.5px] border-white rounded-[0.7px]" />
+      <div className="h-[2.5px] w-1 border-[0.5px] border-white rounded-[0.7px]" />
+    </div>
+    <div className="flex justify-center items-center border-[0.5px] border-white h-[5.5px] w-[3.5px] rounded-[1px]" />
+  </div>,
   <IoIosSearch key="f4" className="w-1 h-1 sm:w-2 sm:h-2" />,
   <IoMicOutline key="f5" className="w-1 h-1 sm:w-2 sm:h-2" />,
   <IoMoonOutline
@@ -57,4 +62,3 @@ export const KeyboardRows = [
   ["A", "S", "D", "F", "G", "H", "J", "K", "L", ":;", "\"'"],
   ["Z", "X", "C", "V", "B", "N", "M", "<,", ">.", "?/"],
 ];
-

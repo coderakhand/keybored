@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900`}
       >
         <div className="h-screen min-w-screen flex justify-center">
-          <div className="w-full max-w-[1600px] flex flex-col gap-4 py-10 sm:px-20 sm:py-5">
+          <div className="w-full max-w-[1600px] flex flex-col gap-4 py-10 sm:px-30 sm:py-5">
             <Logo />
             {children}
           </div>
