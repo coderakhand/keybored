@@ -24,12 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="hydrated">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 flex justify-center`}
       >
-        <div className="h-screen min-w-screen flex justify-center">
-          <div className="w-full max-w-[1600px] flex flex-col gap-4 py-10 sm:px-30 sm:py-5">
+        <div className="max-w-maxScreen h-screen w-full flex justify-center maxScreen:border-x-1">
+          <div className="w-full max-w-[1600px] flex flex-col gap-4 py-10 sm:px-20 sm:py-2">
             <Logo />
             {children}
           </div>

@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PiCursorFill } from "react-icons/pi";
+import { motion } from "framer-motion";
+import { useTextStore } from "@/store/store";
 
 const sentence =
-  "hello world ioreirioer ipeprneinren irnernie roenirneorn eoejoiereir nioenorine eoirein roeno irne inrann eihier eorieirheoir nenroe ioroienroie";
+  "Hello world good part is when men should know how to fight in roeno irne inrann eihier eorieirheoir nenroe ioroienroie";
 
 interface letterInfoType {
   letter: string;
@@ -13,48 +15,124 @@ interface letterInfoType {
 
 export default function TypingBox() {
   const [sentenceInfo, setSentenceInfo] = useState<letterInfoType[]>([]);
-  const [cursorIdx, setCursorIdx] = useState(3);
+  const isTyping = useTextStore((s) => s.isTyping);
+  const setIsTyping = useTextStore((s) => s.setIsTyping);
+  const selectedCategory = useTextStore((s) => s.selectedCategory);
+  const selectedRange = useTextStore((s) => s.selectedRange);
+  const [cursorIdx, setCursorIdx] = useState(0);
   const [focus, setFocus] = useState(false);
+  const [typedString, setTypedString] = useState("");
+  const counter = useRef(selectedRange);
 
   useEffect(() => {
     setSentenceInfo(
-      sentence.split("").map((s) => ({ letter: s, typedCorrectly: null }))
+      sentence.split("").map((s) => ({
+        letter: s,
+        typedCorrectly: null,
+      }))
     );
-  });
+  }, []);
+
+  const typeLetter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key.length > 1) return;
+    const currentLetter = sentence[cursorIdx];
+
+    const correct = e.key === currentLetter;
+
+    setSentenceInfo((prev) => {
+      const updated = [...prev];
+      updated[cursorIdx] = {
+        letter: currentLetter,
+        typedCorrectly: correct,
+      };
+      return updated;
+    });
+    console.log("typed: ", sentence[cursorIdx]);
+
+    if (cursorIdx <= sentence.length - 1) {
+      setCursorIdx((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (isTyping && selectedCategory == "time") {
+      interval = setInterval(() => {
+        if (counter.current <= 0) return;
+        counter.current--;
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isTyping]);
+
   return (
     <div className="relative w-full h-12 cursor-default">
-      {!focus && (
+      {isTyping && (
+        <div className="absolute -top-16 w-full flex justify-center text-indigo-500 text-4xl">
+          {counter.current}
+        </div>
+      )}
+
+      {!isTyping && (
         <div className="absolute w-full h-full text-lg text-white flex justify-center items-center gap-2">
           <PiCursorFill className="rotate-12" />
           <p>Click here or presss any key to focus</p>
         </div>
       )}
       <div
-        className={`w-full grid grid-cols-2 text-4xl relative h-full ${
-          focus ? "" : "blur-sm"
+        className={`relative w-full grid grid-cols-2 text-4xl h-full bordern-none outline-none ${
+          isTyping ? "" : "blur-sm"
         }`}
-        onFocus={() => setFocus(true)}
-        onClick={() => setFocus(true)}
+        tabIndex={0}
+        onFocus={() => setIsTyping(true)}
+        onBlur={() => {
+          setTimeout(() => {
+            setIsTyping(false);
+          }, 800);
+        }}
+        onClick={() => setIsTyping(true)}
+        onKeyDown={typeLetter}
       >
-        <div className="text-white flex justify-end overflow-x-auto">
-          {sentence
-            .slice(0, cursorIdx + 1)
-            .split("")
-            .map((ch, idx) => (
-              <p key={idx}>{ch}</p>
-            ))}
+        <div className="text-white flex justify-end overflow-x-auto pr-0.5">
+          {sentenceInfo.slice(0, cursorIdx).map((obj, idx) => (
+            <motion.p
+              key={idx}
+              animate={{
+                color:
+                  obj.typedCorrectly === null
+                    ? "#9CA3AF"
+                    : obj.typedCorrectly
+                    ? "#FFFFFF"
+                    : "#EF4444",
+              }}
+              transition={{ duration: 0.1 }}
+            >
+              {obj.letter == " " ? "\u00A0" : obj.letter}
+            </motion.p>
+          ))}
         </div>
-        <div className="text-gray-400 flex overflow-hidden">
-          <span
+        {isTyping && (
+          <motion.span
+            initial={{ opacity: 1 }}
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{ duration: 1.2, repeat: Infinity }}
             key={"cursor"}
-            className=" bg-indigo-500 w-1 h-8 z-100 rounded-full"
+            className="absolute bottom-2 inset-x-1/2 bg-indigo-500 w-[3px] h-10 rounded-full"
           />
-          {sentence
-            .slice(cursorIdx + 1)
-            .split("")
-            .map((ch, idx) => (
-              <p key={idx}>{ch}</p>
-            ))}
+        )}
+        <div className="pl-1 text-gray-400 flex overflow-hidden">
+          {sentenceInfo.slice(cursorIdx).map((obj, idx) => (
+            <motion.p
+              key={idx}
+              initial={{ opacity: 0.3 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.1 }}
+            >
+              {obj.letter == " " ? "\u00A0" : obj.letter}
+            </motion.p>
+          ))}
         </div>
       </div>
     </div>

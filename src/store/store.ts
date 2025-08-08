@@ -4,6 +4,7 @@ type category = "time" | "words" | "quote" | "custom";
 type range = number;
 
 interface textStoreType {
+  isTyping: boolean;
   feedPunctuation: boolean;
   feedNumber: boolean;
   selectedCategory: category;
@@ -12,9 +13,11 @@ interface textStoreType {
   setSelectedRange: (val: range) => void;
   toggleFeedPunctuation: () => void;
   toggleFeedNumber: () => void;
+  setIsTyping: (newIsTyping: boolean) => void;
 }
 
 export const useTextStore = create<textStoreType>((set) => ({
+  isTyping: false,
   feedPunctuation: false,
   feedNumber: false,
   selectedCategory: "time",
@@ -26,4 +29,5 @@ export const useTextStore = create<textStoreType>((set) => ({
   toggleFeedPunctuation: () =>
     set((state) => ({ feedPunctuation: !state.feedPunctuation })),
   toggleFeedNumber: () => set((state) => ({ feedNumber: !state.feedNumber })),
+  setIsTyping: (newIsTyping: boolean) => set({ isTyping: newIsTyping }),
 }));

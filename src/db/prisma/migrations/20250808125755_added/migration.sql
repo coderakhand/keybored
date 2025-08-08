@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "public"."User" ADD COLUMN     "bio" TEXT,
+ADD COLUMN     "creationTime" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "imgUrl" TEXT,
+ADD COLUMN     "keyboard" TEXT,
+ADD COLUMN     "totalTestCompleted" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "totalTypingTime" INTEGER NOT NULL DEFAULT 0;

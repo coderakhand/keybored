@@ -6,8 +6,10 @@ export default function RooLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`flex flex-col h-full w-full overflow-hidden px-20`}>
-      <div className="mb-10">
+    <div
+      className={`flex flex-col items-center h-full w-full overflow-hidden px-8`}
+    >
+      <div>
         <NavBar />
       </div>
       {children}

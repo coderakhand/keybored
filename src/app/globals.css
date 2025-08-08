@@ -16,6 +16,7 @@
 @theme {
   --font-nosifer: nosifer, "sans-serif";
   --font-goldman: goldman, "sans-serif";
+  --breakpoint-maxScreen: 1640px;
 }
 
 @theme inline {

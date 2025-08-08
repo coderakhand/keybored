@@ -20,7 +20,7 @@ export default function NavBar() {
   const toggleFeedNumber = useTextStore((s) => s.toggleFeedNumber);
 
   return (
-    <div className="py-1.5 flex items-center justify-center gap-6 w-full h-10 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 text-white">
+    <div className="py-1.5 px-4 flex items-center justify-center gap-6 max-w-[900px] h-10 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 text-white">
       <div className="flex justify-center items-center gap-6">
         <NavButton
           name={"punctuation"}
@@ -95,9 +95,9 @@ function NavButton({
   return (
     <div
       onClick={onClickFn}
-      className={`flex justify-center items-center text-sm gap-1 hover:text-white ${
-        selected ? " text-indigo-500 font-bold" : "text-gray-400 font-medium"
-      } cursor-pointer`}
+      className={`flex justify-center items-center text-sm gap-1 hover:text-white p-0.5 ${
+        selected ? " text-indigo-500" : "text-gray-400"
+      } cursor-pointer font-medium`}
     >
       {logo}
       <p className="font-medium">{name}</p>
