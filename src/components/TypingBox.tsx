@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { PiCursorFill } from "react-icons/pi";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useTextStore } from "@/store/store";
 
 const sentence =
@@ -32,6 +32,10 @@ export default function TypingBox() {
       }))
     );
   }, []);
+
+  useEffect(() => {
+    counter.current = selectedRange;
+  }, [selectedRange]);
 
   const typeLetter = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key.length > 1) return;

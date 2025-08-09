@@ -8,8 +8,9 @@ export function StartButton() {
         pathname: "/type",
       }}
     >
-      <button className="text-white bg-indigo-500 shadow-lg shadow-indigo-500/50 hover:scale-120 transition delay-175 duration-300 ease-in-out p-1 rounded-full w-22 h-8 cursor-pointer font-goldman text-lg flex justify-center items-center">
-        <p className="text-shadow-2xs text-shadow-white/40">Start</p>
+      <button className="group relative text-white bg-indigo-500 shadow-lg shadow-indigo-500/50 hover:brightness-90 hover:shadow-none p-1 rounded-full w-28 h-10 cursor-pointer font-goldman text-xl flex justify-center items-center">
+        <div className="absolute left-0 group-hover:bg-black/60 transition-all duration-100 w-2/3 h-full rounded-l-full"/>
+        <p className="text-shadow-2xs text-shadow-white/40 z-10">Start</p>
       </button>
     </Link>
   );

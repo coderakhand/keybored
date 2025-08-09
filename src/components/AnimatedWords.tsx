@@ -1,5 +1,5 @@
-'use client'
-import { motion } from "framer-motion";
+"use client";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 const words = ["Touch Typing", "Fast Typing", "Accurate Typing"];
@@ -50,9 +50,9 @@ export function AnimatedWords() {
         </motion.span>
       ))}
       <motion.span
-        className="ml-1 py-1 w-[2px] h-full bg-gray-700/40"
+        className="ml-1 py-1 w-[2px] h-full bg-indigo-500 rounded-full"
         animate={{ opacity: [1, 0, 1] }}
-        transition={{ repeat: Infinity, duration: 1 }}
+        transition={{ repeat: Infinity, duration: 1.2 }}
       ></motion.span>
     </p>
   );

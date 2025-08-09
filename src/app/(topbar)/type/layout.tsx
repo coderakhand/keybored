@@ -7,7 +7,7 @@ export default function RooLayout({
 }>) {
   return (
     <div
-      className={`flex flex-col items-center h-full w-full overflow-hidden px-8`}
+      className={`flex flex-col items-center h-full w-full overflow-hidden`}
     >
       <div>
         <NavBar />

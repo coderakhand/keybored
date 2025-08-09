@@ -1,15 +1,11 @@
 "use client";
-
 import { BsFillKeyboardFill } from "react-icons/bs";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link
-      href={{ pathname: "/" }}
-      className="w-full flex justify-start pt-5 items-center"
-    >
+    <Link href={{ pathname: "/" }}>
       <motion.div
         initial={{ filter: "blur(4px)", opacity: 1 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
